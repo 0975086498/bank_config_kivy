@@ -72,6 +72,31 @@ techcombank = {
             "id": "VCB_PIN",
             "label": "Mã pin VCB",
             "value": ""
+        },
+        {
+            "id": "VCB_PIN",
+            "label": "Mã pin VCB",
+            "value": ""
+        },
+        {
+            "id": "VCB_PIN",
+            "label": "Mã pin VCB",
+            "value": ""
+        }
+        , {
+            "id": "VCB_PIN",
+            "label": "Mã pin VCB3",
+            "value": ""
+        }
+        , {
+            "id": "VCB_PIN",
+            "label": "Mã pin VCB2",
+            "value": ""
+        }
+        , {
+            "id": "VCB_PIN1",
+            "label": "Mã pin VCB1",
+            "value": ""
         }
     ],
 }

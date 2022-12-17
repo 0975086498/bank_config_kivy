@@ -20,7 +20,7 @@ Builder.load_file('kvs/widgets/log_list_item.kv')
 
 Builder.load_file('kvs/widgets/dialog_config.kv')
 
-Window.size = (320, 700)
+Window.size = (1080, 1960)
 
 class WindowManager(ScreenManager):
     '''A window manager to manage switching between sceens.'''
@@ -33,6 +33,7 @@ class BankWithImage(MDCard):
     text = StringProperty()
     source = StringProperty()
 
+
 class LogListItem(MDBoxLayout):
     '''A clickable chat item for the chat timeline.'''
     bank_name = StringProperty()
@@ -40,8 +41,10 @@ class LogListItem(MDBoxLayout):
     timestamp = StringProperty()
     profile = DictProperty()
 
+
 class HomeScreen(Screen):
     pass
+
 
 class MainApp(MDApp):
     ''' The main App class using kivymd's properties.'''
@@ -63,20 +66,13 @@ class MainApp(MDApp):
         for screen in screens:
             self.wm.add_widget(screen)
 
-        self.story_builder()
-        self.chat_list_builder()
+        self.bank_list_builder()
+        self.log_list_builder()
 
         return self.wm
 
 
-    def show_theme_picker(self):
-        '''Display a dialog window to change app's color and theme.'''
-        theme_dialog = MDThemePicker()
-        theme_dialog.open()
-
-
-
-    def story_builder(self):
+    def bank_list_builder(self):
         '''Create a Story for each user and
         adds it to the story layout'''
         for profile in demo.demo.profiles:
@@ -86,7 +82,7 @@ class MainApp(MDApp):
             bank.profile = profile
             self.wm.screens[0].ids['bank_layout'].add_widget(bank)
 
-    def chat_list_builder(self):
+    def log_list_builder(self):
         for messages in profiles:
             self.log_item = LogListItem()
             self.log_item.profile = messages
@@ -96,32 +92,56 @@ class MainApp(MDApp):
             self.wm.screens[0].ids['logList'].add_widget(self.log_item)
 
     def bank_config(self, profile):
+
+        cancel_button = MDFlatButton(
+            text="Cancel",
+            theme_text_color="Custom",
+            text_color=self.theme_cls.primary_color,
+            radius=[8],
+        )
+
         save_button = MDRaisedButton(
-            text="Start",
+            text="Save",
             radius=[8],
 
         )
-        save_button.bind(on_release=self.on_save)
+
+        ui = DialogConfig(profile)
+
+        def on_click(*args):
+            i = 0
+            while i < len(ui.bank_config.fields):
+                ui.bank_config.fields[i]['value'] = ui.list_text_field[i].text
+                i = i + 1
+            self.runningBank = ui.bank_config
+            start_service()
+            self.dialog.dismiss()
+
+        save_button.bind(on_release=on_click)
+        cancel_button.bind(on_release=self.dismiss_dialog)
         self.dialog = MDDialog(
             title="Config for: " + profile.name,
             type="custom",
 
-            content_cls=DialogConfig(profile),
+            content_cls=ui,
             buttons=[
-                MDFlatButton(
-                    text="Cancel",
-                    theme_text_color="Custom",
-                    text_color=self.theme_cls.primary_color,
-                    radius=[8],
-                ),
+                cancel_button,
                 save_button
             ],
         )
 
         self.dialog.open()
 
-    def on_save(self, profile):
-        toast(profile.name)
+        def start_service(*args):
+            pass
+
+    def dismiss_dialog(self, *args):
+        self.dialog.dismiss()
+
 
 if __name__ == "__main__":
     MainApp().run()
+
+# python 3.9
+# kivy 2.1.0
+# kivymd 0.104.2

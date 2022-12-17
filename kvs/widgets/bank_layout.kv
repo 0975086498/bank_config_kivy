@@ -2,7 +2,7 @@
     ripple_behavior: True
     radius: [8]
     valign: "center"
-    on_press: app.bank_config(root.profile)
+    on_release: app.bank_config(root.profile)
     orientation: 'vertical'
     size_hint: (None, None)
     valign: "Center"
@@ -23,7 +23,7 @@
         size_hint_y: None
         # size_hint_x: None
         halign: 'center'
-        font_size: 12
+        font_size: '12sp'
         color: [1, 1, 1, 1]
         bold: True
     Widget:
@@ -34,7 +34,7 @@
     orientation: 'vertical'
     size: (45, 80)
     size_hint: (None, None)
-    spacing: 5
+    spacing: '5sp'
     MDIconButton:
         icon: 'camera-outline'
         theme_text_color: 'Custom'
