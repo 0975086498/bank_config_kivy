@@ -9,6 +9,7 @@ from kivymd.uix.textfield import MDTextField
 class DialogConfig(MDBoxLayout):
     bank_config = DictProperty()
     list_text_field = []
+
     def __init__(self, bank_config):
         self.fields = bank_config.fields
         super().__init__()
@@ -23,5 +24,3 @@ class DialogConfig(MDBoxLayout):
             textField.hint_text = field['label']
             self.add_widget(textField)
 
-
-    # def on_save(self, instance, value):

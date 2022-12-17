@@ -1,5 +1,5 @@
 #: import demo demo.demo
-
+#:import get_color_from_hex kivy.utils.get_color_from_hex
 <HomeScreen>:
 
     MDBoxLayout: 
@@ -7,6 +7,7 @@
         md_bg_color: app.theme_cls.bg_normal
         MDToolbar: 
             id: logoToolBar
+            md_bg_color: get_color_from_hex("#27133a")
             height: '50sp'
             title: "Bank config"
             margin: 0
@@ -18,7 +19,7 @@
             MDBoxLayout:
                 adaptive_height: True
                 orientation: 'vertical'
-                md_bg_color: app.theme_cls.primary_color
+                md_bg_color: get_color_from_hex("#27133a")
                 spacing: '20sp'
                 MDBoxLayout:
                     height: '80sp'
@@ -34,16 +35,33 @@
                             size_hint_x: None
                             padding: [10, 0, 0, 0]
                 MDBoxLayout:
+                    pos_hint: {"center_x":.5}
                     orientation: 'horizontal'
                     adaptive_height: True
-                    halign: 'center'
                     size_hint_x: None
-                    MDRoundFlatButton:
+                    width: btnStart.width + btnStop.width
+                    MDRoundFlatIconButton:
+                        id:btnStop
                         text: "Stop"
-                        color: app.theme_cls.bg_normal
-                    MDFillRoundFlatButton
+                        icon: "stop"
+                        line_color: get_color_from_hex("#dc3545")
+                        theme_text_color: "Custom"
+                        text_color: "white"
+                        adaptive_width: True
+                        theme_icon_color: "Custom"
+                        icon_color: get_color_from_hex("#dc3545")
+                        on_release: app.stop_service()
+                    Widget:
+                        size_hint_x: None
+                        width: '16sp'
+                    MDFillRoundFlatIconButton
+                        id:btnStart
                         text: "Start"
-                        color: app.theme_cls.bg_normal
+                        icon: "ray-start-arrow"
+                        md_bg_color: get_color_from_hex("#299d82")
+                        adaptive_width: True
+                        on_release: app.start_service()
+
 
 
                 MDBoxLayout:

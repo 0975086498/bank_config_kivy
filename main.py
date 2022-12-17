@@ -1,7 +1,8 @@
 from kivy.core.window import Window
 from kivy.lang import Builder
-from kivy.properties import DictProperty, StringProperty
+from kivy.properties import DictProperty, StringProperty, get_color_from_hex
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
+from kivy.uix.scrollview import ScrollView
 from kivymd.app import MDApp
 from kivymd.toast import toast
 from kivymd.uix.boxlayout import MDBoxLayout
@@ -9,6 +10,7 @@ from kivymd.uix.button import MDFlatButton, MDRaisedButton
 from kivymd.uix.card import MDCard
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.picker import MDThemePicker
+from kivymd.uix.textfield import MDTextField
 
 import demo.demo
 from demo.demo import profiles
@@ -20,7 +22,8 @@ Builder.load_file('kvs/widgets/log_list_item.kv')
 
 Builder.load_file('kvs/widgets/dialog_config.kv')
 
-Window.size = (1080, 1960)
+Window.size = (320, 700)
+
 
 class WindowManager(ScreenManager):
     '''A window manager to manage switching between sceens.'''
@@ -54,10 +57,7 @@ class MainApp(MDApp):
     def build(self):
         ''' Initializes the Application
         and returns the root widget'''
-        self.theme_cls.theme_style = 'Dark'
-        self.theme_cls.primary_palette = 'Teal'
-        self.theme_cls.accent_palette = 'Teal'
-        self.theme_cls.accent_hue = '400'
+        self.theme_cls.theme_style = 'Light'
         self.title = "Bank config"
         self.wm = WindowManager(transition=FadeTransition())
         screens = [
@@ -70,7 +70,6 @@ class MainApp(MDApp):
         self.log_list_builder()
 
         return self.wm
-
 
     def bank_list_builder(self):
         '''Create a Story for each user and
@@ -96,34 +95,35 @@ class MainApp(MDApp):
         cancel_button = MDFlatButton(
             text="Cancel",
             theme_text_color="Custom",
-            text_color=self.theme_cls.primary_color,
             radius=[8],
         )
 
         save_button = MDRaisedButton(
             text="Save",
             radius=[8],
-
+            md_bg_color=get_color_from_hex("#27133a")
         )
 
+        scroll = ScrollView()
         ui = DialogConfig(profile)
-
+        ui.adaptive_height = True
+        ui.size_hint_y = None
+        scroll.add_widget(ui)
         def on_click(*args):
             i = 0
             while i < len(ui.bank_config.fields):
                 ui.bank_config.fields[i]['value'] = ui.list_text_field[i].text
                 i = i + 1
             self.runningBank = ui.bank_config
-            start_service()
             self.dialog.dismiss()
 
         save_button.bind(on_release=on_click)
         cancel_button.bind(on_release=self.dismiss_dialog)
         self.dialog = MDDialog(
+            size_hint=[0.9, None],
             title="Config for: " + profile.name,
             type="custom",
-
-            content_cls=ui,
+            content_cls=scroll,
             buttons=[
                 cancel_button,
                 save_button
@@ -132,11 +132,14 @@ class MainApp(MDApp):
 
         self.dialog.open()
 
-        def start_service(*args):
-            pass
-
     def dismiss_dialog(self, *args):
         self.dialog.dismiss()
+
+    def start_service(self):
+        toast("Start service")
+
+    def stop_service(self):
+        toast("Stop service")
 
 
 if __name__ == "__main__":
