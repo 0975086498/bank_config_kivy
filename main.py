@@ -120,6 +120,7 @@ class MainApp(MDApp):
             title="Config for: " + profile.name,
             type="custom",
             content_cls=ui,
+            auto_dismiss=False,
             buttons=[
                 cancel_button,
                 save_button
