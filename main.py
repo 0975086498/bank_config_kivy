@@ -104,11 +104,7 @@ class MainApp(MDApp):
             md_bg_color=get_color_from_hex("#27133a")
         )
 
-        scroll = ScrollView()
         ui = DialogConfig(profile)
-        ui.adaptive_height = True
-        ui.size_hint_y = None
-        scroll.add_widget(ui)
         def on_click(*args):
             i = 0
             while i < len(ui.bank_config.fields):
@@ -123,7 +119,7 @@ class MainApp(MDApp):
             size_hint=[0.9, None],
             title="Config for: " + profile.name,
             type="custom",
-            content_cls=scroll,
+            content_cls=ui,
             buttons=[
                 cancel_button,
                 save_button
