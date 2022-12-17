@@ -1,0 +1,56 @@
+<BankWithImage@MDBoxLayout>:
+    ripple_behavior: True
+    radius: [8]
+    valign: "center"
+    on_press: app.bank_config(root.profile)
+    orientation: 'vertical'
+    size_hint: (None, None)
+    valign: "Center"
+    size_hint_y:None
+    height: avatar.height + name.height + 16
+    md_bg_color: [0, 0, 0, 0]
+    elevation: 0
+    Avatar:
+        ripple_behavior: True
+        id: avatar
+        source: root.source
+        pos_hint: {'center_x':.5}
+    MDLabel:
+        id: name
+        text: root.text
+        size: self.texture_size
+        theme_text_color: 'Custom'
+        size_hint_y: None
+        # size_hint_x: None
+        halign: 'center'
+        font_size: 12
+        color: [1, 1, 1, 1]
+        bold: True
+    Widget:
+        size_hint_y: None
+        height: 8
+
+<BankWithIcon@MDBoxLayout>:
+    orientation: 'vertical'
+    size: (45, 80)
+    size_hint: (None, None)
+    spacing: 5
+    MDIconButton:
+        icon: 'camera-outline'
+        theme_text_color: 'Custom'
+        pos_hint: {'center_x': .5}
+        text_color: [1, 1, 1, 1]
+        md_bg_color: app.theme_cls.accent_color
+        user_font_size: 18
+        size: (40, 40)
+        size_hint: (None, None)
+    MDLabel:
+        text: 'Your Story'
+        size: self.texture_size
+        theme_text_color: 'Custom'
+        size_hint_y: None
+        # size_hint_x: None
+        halign: 'center'
+        font_size: 9
+        color: [1, 1, 1, 1]
+        bold: True

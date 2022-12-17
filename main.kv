@@ -1,0 +1,59 @@
+#: import demo demo.demo
+
+<HomeScreen>:
+
+    MDBoxLayout: 
+        orientation: "vertical"
+        md_bg_color: app.theme_cls.bg_normal
+        MDToolbar: 
+            id: logoToolBar
+            height: 50
+            title: "Bank config"
+            right_action_items: [['dots-vertical', lambda x: app.show_theme_picker()]]
+            margin: 0
+
+        ScrollView:
+            do_scroll_y: True
+            effect_cls: 'ScrollEffect'
+            bar_width: 0
+            MDBoxLayout:
+                adaptive_height: True
+                orientation: 'vertical'
+                md_bg_color: app.theme_cls.primary_color
+                spacing: 20
+                MDBoxLayout:
+                    height: 80
+                    size_hint_y: None
+                    ScrollView:
+                        do_scroll_x: True
+                        do_scroll_y: False
+                        bar_width: 0
+                        MDBoxLayout: 
+                            id: bank_layout
+                            orientation: 'horizontal'
+                            adaptive_width: True
+                            size_hint_x: None
+                            padding: [10, 0, 0, 0]
+
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    md_bg_color: app.theme_cls.bg_normal
+                    size_hint_y: None
+                    adaptive_height: True
+                    radius: [20, 20, 0, 0]
+                    padding: [0, 0, 0, 40]
+
+                    Label:
+                        text: 'Log'
+                        theme_text_color: 'Custom'
+                        size: self.texture_size
+                        size_hint_y: None
+                        size_hint_x: None
+                        font_size: 15
+                        padding: [16,8]
+                        color: app.theme_cls.opposite_bg_normal
+                        bold: True
+
+                    MDList:
+                        id: logList
+                        spacing: 10
