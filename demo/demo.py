@@ -19,7 +19,7 @@ mbbank = {
 
 vietcombank = {
     "id": "2",
-    "name": "VietCom Bank",
+    "name": "VietCom Bank grfgrg rgrgrgr erg erg e",
     "image": "assets/images/16.png",
     "active": False,
     "fields": [

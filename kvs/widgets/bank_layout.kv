@@ -6,7 +6,7 @@
     orientation: 'vertical'
     size_hint: (None, None)
     valign: "Center"
-    size_hint_y:None
+    width: 120
     height: avatar.height + name.height + 16
     md_bg_color: [0, 0, 0, 0]
     elevation: 0
@@ -22,6 +22,11 @@
         theme_text_color: 'Custom'
         size_hint_y: None
         # size_hint_x: None
+
+        shorten: True
+        markup: True
+        shorten_from: 'right'
+
         halign: 'center'
         font_size: '12sp'
         color: [1, 1, 1, 1]
