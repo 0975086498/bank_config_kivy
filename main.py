@@ -22,7 +22,6 @@ Builder.load_file('kvs/widgets/log_list_item.kv')
 
 Builder.load_file('kvs/widgets/dialog_config.kv')
 
-Window.size = (320, 700)
 
 
 class WindowManager(ScreenManager):
