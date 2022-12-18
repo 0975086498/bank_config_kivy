@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.properties import DictProperty, StringProperty, get_color_from_hex, BooleanProperty
@@ -165,6 +167,11 @@ class MainApp(MDApp):
         toast("install ATC & UI")
 
     def auto_test(self):
+        self.log_item = LogListItem()
+        self.log_item.bank_name = "------------------------"
+        self.log_item.mssg = "Service is running...."
+        self.log_item.timestamp = 'datetime.now()'
+        self.wm.screens[0].ids['logList'].add_widget(self.log_item)
         toast("Auto test")
 
 
