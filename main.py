@@ -1,12 +1,12 @@
 from kivy.core.window import Window
 from kivy.lang import Builder
-from kivy.properties import DictProperty, StringProperty, get_color_from_hex
+from kivy.properties import DictProperty, StringProperty, get_color_from_hex, BooleanProperty
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 from kivy.uix.scrollview import ScrollView
 from kivymd.app import MDApp
 from kivymd.toast import toast
 from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.button import MDFlatButton, MDRaisedButton
+from kivymd.uix.button import MDFlatButton, MDRaisedButton, MDFillRoundFlatButton
 from kivymd.uix.card import MDCard
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.picker import MDThemePicker
@@ -23,7 +23,6 @@ Builder.load_file('kvs/widgets/log_list_item.kv')
 Builder.load_file('kvs/widgets/dialog_config.kv')
 
 
-
 class WindowManager(ScreenManager):
     '''A window manager to manage switching between sceens.'''
 
@@ -32,6 +31,7 @@ class BankWithImage(MDCard):
     '''A horizontal layout with an image(profile picture)
         and a text(username) - The Story.'''
     profile = DictProperty()
+    active = BooleanProperty()
     text = StringProperty()
     source = StringProperty()
 
@@ -78,6 +78,7 @@ class MainApp(MDApp):
             bank.text = profile['name']
             bank.source = profile['image']
             bank.profile = profile
+            bank.active = profile['active']
             self.wm.screens[0].ids['bank_layout'].add_widget(bank)
 
     def log_list_builder(self):
@@ -97,13 +98,14 @@ class MainApp(MDApp):
             radius=[8],
         )
 
-        save_button = MDRaisedButton(
+        save_button = MDFillRoundFlatButton(
             text="Save",
             radius=[8],
             md_bg_color=get_color_from_hex("#27133a")
         )
 
         ui = DialogConfig(profile)
+
         def on_click(*args):
             i = 0
             while i < len(ui.bank_config.fields):
@@ -133,8 +135,37 @@ class MainApp(MDApp):
     def start_service(self):
         toast("Start service")
 
-    def stop_service(self):
-        toast("Stop service")
+    def on_stop_service(self):
+
+        btnCancel = MDFlatButton(
+            text="Cancel",
+            theme_text_color="Custom",
+        )
+        btnStop = MDFillRoundFlatButton(
+            text="Stop",
+            md_bg_color=get_color_from_hex("#27133a")
+        )
+
+        self.dialog = MDDialog(
+            text="Stop service?",
+            buttons=[
+                btnCancel,
+                btnStop
+            ],
+        )
+        btnCancel.bind(on_release=self.dismiss_dialog)
+        btnStop.bind(on_release=self.do_stop_service)
+        self.dialog.open()
+
+    def do_stop_service(self, *args):
+        self.dismiss_dialog()
+        toast('Stop service')
+
+    def install_atx(self):
+        toast("install ATC & UI")
+
+    def auto_test(self):
+        toast("Auto test")
 
 
 if __name__ == "__main__":

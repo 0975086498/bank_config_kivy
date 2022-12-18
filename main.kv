@@ -51,7 +51,7 @@
                         adaptive_width: True
                         theme_icon_color: "Custom"
                         icon_color: get_color_from_hex("#dc3545")
-                        on_release: app.stop_service()
+                        on_release: app.on_stop_service()
                     Widget:
                         size_hint_x: None
                         width: '16sp'
@@ -63,6 +63,35 @@
                         adaptive_width: True
                         on_release: app.start_service()
 
+                MDBoxLayout:
+                    pos_hint: {"center_x":.5}
+                    orientation: 'horizontal'
+                    adaptive_height: True
+                    size_hint_x: None
+                    width: btnInstall.width + btnAutoTest.width
+                    MDRoundFlatIconButton:
+                        id:btnInstall
+                        text: "Install ATX & UIAutomator"
+                        icon: "auto-download"
+                        line_color: get_color_from_hex("#fab700")
+                        theme_text_color: "Custom"
+                        text_color: "white"
+                        adaptive_width: True
+                        theme_icon_color: "Custom"
+                        icon_color: get_color_from_hex("#fab700")
+                        on_release: app.install_atx()
+                    Widget:
+                        size_hint_x: None
+                        width: '16sp'
+                    MDRoundFlatIconButton
+                        id:btnAutoTest
+                        text: "Auto Test"
+                        icon: "autorenew"
+                        icon_color: get_color_from_hex("#fab700")
+                        line_color: get_color_from_hex("#fab700")
+                        adaptive_width: True
+                        text_color: "white"
+                        on_release: app.auto_test()
 
 
                 MDBoxLayout:
