@@ -116,7 +116,6 @@ class MainApp(MDApp):
         save_button.bind(on_release=on_click)
         cancel_button.bind(on_release=self.dismiss_dialog)
         self.dialog = MDDialog(
-            size_hint=[0.9, None],
             title="Config for: " + profile.name,
             type="custom",
             content_cls=ui,

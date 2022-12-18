@@ -1,28 +1,14 @@
 <DialogConfig>:
     size_hint_y:None
-    orientation: "vertical"
-
-
-#    MDLabel:
-#        id:bankName
-#        theme_text_color: 'Custom'
-#        size: self.texture_size
-#        size_hint_y: None
-#        size_hint_x: None
-#        font_size: 15
-#        color: app.theme_cls.opposite_bg_normal
-#        bold: True
-
+    do_scroll_x: False
+    do_scroll_y: True
     MDBoxLayout
         id: contentLayout
-        adaptive_height: True
-        adaptive_width: True
         orientation: "vertical"
+        adaptive_height: True
         size_hint_y: None
-        size_hint_x: None
+        height: 0
         spacing: "12sp"
-        size_hint_y: None
-        padding:[24, 24]
 
 
 
