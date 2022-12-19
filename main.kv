@@ -35,52 +35,73 @@
                             adaptive_width: True
                             size_hint_x: None
                             padding: [10, 0, 0, 0]
-                MDBoxLayout:
-                    pos_hint: {"center_x":.5}
-                    orientation: 'horizontal'
-                    adaptive_height: True
+                MDGridLayout:
+                    id: gridButton
                     size_hint_x: None
-                    width: btnStart.width + btnStop.width
+                    adaptive_size: True
+                    width: root.width
+                    cols:5
+                    Widget:
+                        id: gap1
+                        size_hint_x: None
+                        width: '16sp'
                     MDRoundFlatIconButton:
                         id:btnStop
                         text: "Stop"
                         icon: "stop"
+                        text_size: self.size
+                        halign: 'center'
                         line_color: get_color_from_hex("#dc3545")
                         theme_text_color: "Custom"
                         text_color: "white"
-                        adaptive_width: True
+                        width: gridButton.width/2 - gap2.width/2 - gap1.width
                         theme_icon_color: "Custom"
                         icon_color: get_color_from_hex("#dc3545")
                         on_release: app.on_stop_service()
                     Widget:
+                        id: gap2
                         size_hint_x: None
                         width: '16sp'
                     MDFillRoundFlatIconButton
                         id:btnStart
                         text: "Start"
+                        width: gridButton.width/2 - gap2.width/2 - gap3.width
                         icon: "ray-start-arrow"
                         md_bg_color: get_color_from_hex("#299d82")
                         adaptive_width: True
                         on_release: app.start_service()
+                    Widget:
+                        id: gap3
+                        size_hint_x: None
+                        width: '16sp'
 
-                MDBoxLayout:
-                    pos_hint: {"center_x":.5}
-                    orientation: 'horizontal'
-                    adaptive_height: True
+                MDGridLayout:
+                    id: gridButton
                     size_hint_x: None
-                    width: btnInstall.width + btnAutoTest.width
+                    adaptive_size: True
+                    width: root.width
+                    cols:5
+                    Widget:
+                        id: gap4
+                        size_hint_x: None
+                        width: '16sp'
                     MDRoundFlatIconButton:
                         id:btnInstall
                         text: "Install ATX & UIAutomator"
                         icon: "auto-download"
+                        shorten: True
+                        markup: True
+                        shorten_from: 'right'
                         line_color: get_color_from_hex("#fab700")
                         theme_text_color: "Custom"
                         text_color: "white"
                         adaptive_width: True
+                        width: gridButton.width/2 - gap3.width/2 - gap4.width
                         theme_icon_color: "Custom"
                         icon_color: get_color_from_hex("#fab700")
                         on_release: app.install_atx()
                     Widget:
+                        id: gap3
                         size_hint_x: None
                         width: '16sp'
                     MDRoundFlatIconButton
@@ -88,10 +109,15 @@
                         text: "Auto Test"
                         icon: "autorenew"
                         icon_color: get_color_from_hex("#fab700")
+                        width: gridButton.width/2 - gap3.width/2 - gap6.width
                         line_color: get_color_from_hex("#fab700")
                         adaptive_width: True
                         text_color: "white"
                         on_release: app.auto_test()
+                    Widget:
+                        id: gap6
+                        size_hint_x: None
+                        width: '16sp'
 
 
                 MDBoxLayout:
