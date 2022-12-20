@@ -1,22 +1,18 @@
-from datetime import datetime
 
-from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.properties import DictProperty, StringProperty, get_color_from_hex, BooleanProperty
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
-from kivy.uix.scrollview import ScrollView
 from kivymd.app import MDApp
 from kivymd.toast import toast
 from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.button import MDFlatButton, MDRaisedButton, MDFillRoundFlatButton
+from kivymd.uix.button import MDFlatButton, MDFillRoundFlatButton
 from kivymd.uix.card import MDCard
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.picker import MDThemePicker
-from kivymd.uix.textfield import MDTextField
 
 import demo.demo
 from demo.demo import profiles
 from kvs.dialog_config import DialogConfig
+from kvs.widgets.progress_loader import ProgressLoader
 
 Builder.load_file('kvs/widgets/bank_layout.kv')
 Builder.load_file('kvs/widgets/avatar.kv')
@@ -54,6 +50,7 @@ class MainApp(MDApp):
     ''' The main App class using kivymd's properties.'''
     dialog = None
     runningBank = None
+    loadingDialog = None
 
     def build(self):
         ''' Initializes the Application
@@ -167,13 +164,24 @@ class MainApp(MDApp):
         toast("install ATC & UI")
 
     def auto_test(self):
-        self.log_item = LogListItem()
-        self.log_item.bank_name = "------------------------"
-        self.log_item.mssg = "Service is running...."
-        self.log_item.timestamp = 'datetime.now()'
-        self.wm.screens[0].ids['logList'].add_widget(self.log_item)
+        self.show_loading()
+        # self.hide_loading()
         toast("Auto test")
 
+    def show_loading(self):
+        if not self.loadingDialog:
+            self.loadingDialog = MDDialog(
+                type="custom",
+                content_cls=ProgressLoader(),
+                auto_dismiss=False,
+                title="Please wait ...",
+            )
+            self.loadingDialog.open()
+
+    def hide_loading(self):
+        if self.loadingDialog:
+            self.loadingDialog.dismiss()
+            self.loadingDialog = None
 
 if __name__ == "__main__":
     MainApp().run()
